@@ -1,6 +1,6 @@
 {
   "name": "tfcommons",
-  "version": "1.0.0",
+  "version": "0.0.0-beta.1",
   "description": "A collection of shared resources used by Thinkful",
   "main": "index.js",
   "scripts": {
