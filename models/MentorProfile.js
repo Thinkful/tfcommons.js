@@ -1,7 +1,7 @@
 var _ = require('lodash');
 
-var Enrollment = require('./enrollment-model');
-var Agreement = require('./agreement-model');
+var Enrollment = require('./Enrollment');
+var Agreement = require('./Agreement');
 
 function MentorProfile (properties) {
     _.assign(this, properties);

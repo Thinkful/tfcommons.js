@@ -6,9 +6,8 @@ var IMAGE_BASE_URL = 'http://www.thinkful.com/splash/static/homepage/mentor-pics
 function Agreement (properties) {
     _.assign(this, properties);
     _.assign(this, {
-        _priority: this.getNextSession().unix(),
-        // mentor_image: getMentorImageURL(this)
-    })
+        _priority: this.getNextSession().unix()
+    });
 }
 
 Agreement.create = function (properties) {
@@ -92,7 +91,7 @@ function isSessionOccuringNow () {
     return next && moment().isBetween(next, moment(next).add(45, 'minutes'))
 }
 
-function getMentorImageURL (obj) {
+Agreement.getMentorImageURL = function getMentorImageURL (obj) {
     return obj && obj.mentor_name &&
     (   IMAGE_BASE_URL
     +   _(obj.mentor_name.split(' ')).compact().map(function (val) {
@@ -102,6 +101,6 @@ function getMentorImageURL (obj) {
             .join('')
     +   '.png'
     );
-}
+};
 
 module.exports = Agreement;

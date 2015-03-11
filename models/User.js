@@ -1,8 +1,8 @@
 var _ = require('lodash');
 
-var Enrollment = require('./enrollment-model');
-var MentorProfile = require('./mentor-profile-model');
-var StudentProfile = require('./student-profile-model');
+var Enrollment = require('./Enrollment');
+var MentorProfile = require('./MentorProfile');
+var StudentProfile = require('./StudentProfile');
 
 function User (properties) {
     _.assign(this, properties);

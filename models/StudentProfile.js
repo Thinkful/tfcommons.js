@@ -1,6 +1,6 @@
 var _ = require('lodash');
 
-var Agreement = require('./agreement-model');
+var Agreement = require('./Agreement');
 
 function StudentProfile (properties) {
     _.assign(this, properties);
