@@ -1,6 +1,6 @@
 {
   "name": "tfcommons",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A collection of shared resources used by Thinkful",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -31,6 +31,6 @@
   "dependencies": {
     "lodash": "^3.5.0",
     "moment": "^2.9.0",
-    "react": "^0.13.0"
+    "react": "~0.12.2"
   }
 }
