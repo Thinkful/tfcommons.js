@@ -1,27 +1,36 @@
 {
   "name": "tfcommons",
-  "version": "0.0.0-beta.3",
+  "version": "0.0.1",
   "description": "A collection of shared resources used by Thinkful",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Thinkful/common.js.git"
+    "url": "https://github.com/Thinkful/tfcommons.js.git"
   },
   "keywords": [
-    "only-the-best",
-    "better-than-all-the-rest"
+    "thinkful"
   ],
-  "author": "The Force",
+  "author": "Thinkful",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Thinkful/common.js/issues"
+    "url": "https://github.com/Thinkful/tfcommons.js/issues"
   },
-  "homepage": "https://github.com/Thinkful/common.js",
+  "homepage": "https://github.com/Thinkful/tfcommons.js",
+  "contributors": [
+    {
+      "email": "evanrs@gmail.com",
+      "name": "Evan Schneider"
+    },
+    {
+      "email": "t.ripley.peterson@gmail.com",
+      "name": "Thomas Peterson"
+    }
+  ],
   "dependencies": {
     "lodash": "^3.5.0",
-    "moment": "^2.9.0"
+    "moment": "^2.9.0",
+    "react": "^0.13.0"
   }
 }
