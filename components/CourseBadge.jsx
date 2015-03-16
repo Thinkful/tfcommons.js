@@ -8,91 +8,77 @@ const React = require('react');
  */
 const CourseBadge = React.createClass({
     render() {
-        var {code, scale} = this.props;
+        var {code, scale, style} = this.props;
         var course = COURSES.filter(
             c => new RegExp(c.code, 'gi').test(code))[0] || COURSE_DEFAULT;
-        var src = `${BUCKET}/${course.icon}`;
+        var src = `${BUCKET}/${course.path || course.code}/icon.svg`;
 
         scale = scale || 1;
+        style = style || {
+            height: `${1.5 * scale}em`,
+            marginBottom: `-${0.3 * scale}em`
+        };
 
         return (
-            <img
-                alt={course.displayName}
-                className="course-badge"
-                src={src}
-                style={{
-                    height: `${1.5 * scale}em`,
-                    marginBottom: `-${0.3 * scale}em`}}/>
+            <img alt={course.displayName} className="course-badge"
+                {...{src, style}} // object spread
+            />
         );
     }
 });
 
 const BUCKET = "//tf-assets-prod.s3.amazonaws.com/splash/courses";
 const COURSES = [
-    {   code: "AND",
-        displayName: "Android Development",
-        icon: "and/icon.svg"
+    {   displayName: "Android Development",
+        code: "and",
     },
-    {   code: "ANG",
-        displayName: "AngularJS",
-        icon: "ang/icon.svg"
+    {   displayName: "AngularJS",
+        code: "ang",
     },
-    {   code: "BFD",
-        displayName: "Become a Frontend Developer",
-        icon: "bfd/icon.svg"
+    {   displayName: "Become a Frontend Developer",
+        code: "bfd",
     },
-    {   code: "DATA",
-        displayName: "Data Science",
-        icon: "data/icon.svg"
+    {   displayName: "Data Science",
+        code: "data",
     },
-    {   code: "DES",
-        displayName: "Modern Web Design",
-        icon: "des/icon.svg"
+    {   displayName: "Modern Web Design",
+        code: "des",
     },
-    {   code: "FEWD",
-        displayName: "Frontend Web Development",
-        icon: "fewd/icon.svg"
+    {   displayName: "Frontend Web Development",
+        code: "fewd",
     },
-    {   code: "IOS",
-        displayName: "Swift iOS Development",
-        icon: "swift/icon.svg"
+    {   displayName: "Swift iOS Development",
+        code: "ios",
+        path: "swift"
     },
-    {   code: "MKSQ",
-        displayName: "JavaScript @ MakerSquare",
-        icon: "mksq/icon.png"
+    {   displayName: "JavaScript @ MakerSquare",
+        code: "mksq",
     },
-    {   code: "NODE",
-        displayName: "NodeJS",
-        icon: "node/icon.svg"
+    {   displayName: "NodeJS",
+        code: "node",
     },
-    {   code: "PIP",
-        displayName: "Programming in Python",
-        icon: "pip/icon.svg"
+    {   displayName: "Programming in Python",
+        code: "pip",
     },
-    {   code: "ROR",
-        displayName: "Ruby on Rails",
-        icon: "ror/icon.svg"
+    {   displayName: "Ruby on Rails",
+        code: "ror",
     },
-    {   code: "APPDES",
-        displayName: "Application Design",
-        icon: "ror/icon.svg"
+    {   displayName: "Application Design",
+        code: "appdes",
+        path: "uxd"
     },
-    {   code: "CAREER",
-        displayName: "Career Services",
-        icon: "uxd/icon.svg"
+    {   displayName: "Career Services",
+        code: "career",
+        path: "uxd"
     },
-    {   code: "UXD",
-        displayName: "User Experience Design",
-        icon: "uxd/icon.svg"
-    },
-    {   code: "XYZ",
-        displayName: "XYZ",
-        icon: "uxd/icon.svg"
+    {   displayName: "User Experience Design",
+        code: "uxd",
+        path: "uxd"
     }
 ];
 const COURSE_DEFAULT = {
-    displayName: "XYZ",
-    icon: "uxd/icon.svg"
+    displayName: "ERROR: COURSE ICON MISSING",
+    path: "uxd"
 }
 
 module.exports = CourseBadge;
