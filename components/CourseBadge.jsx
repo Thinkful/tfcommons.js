@@ -1,8 +1,5 @@
-/**
- * <CourseBadge/>
- * @type {[type]}
- */
 const React = require('react');
+
 /**
  * <CourseBadge code={course_code} scale={1}/>
  * @param  {Prop} code  a course code that will match COURSES.code
@@ -42,11 +39,11 @@ const COURSES = [
     },
     {   code: "BFD",
         displayName: "Become a Frontend Developer",
-        icon: "//tf-assets-prod.s3.amazonaws.com/splash/courses/bfd/icon.svg"
+        icon: "bfd/icon.svg"
     },
     {   code: "DATA",
         displayName: "Data Science",
-        icon: "//tf-assets-prod.s3.amazonaws.com/splash/courses/data/icon.svg"
+        icon: "data/icon.svg"
     },
     {   code: "DES",
         displayName: "Modern Web Design",
@@ -62,7 +59,7 @@ const COURSES = [
     },
     {   code: "MKSQ",
         displayName: "JavaScript @ MakerSquare",
-        icon: "https://s3.amazonaws.com/tf-assets-prod/splash/courses/mksq/icon.png"
+        icon: "mksq/icon.png"
     },
     {   code: "NODE",
         displayName: "NodeJS",
