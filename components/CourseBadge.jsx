@@ -9,7 +9,7 @@ const {getCourseIcon} = require('../media/courseIcons');
  * @param  {Prop} scale a number scaling the image below or above line height
  * @return {<img/>}     returns img element with src of course icon
  */
-export const CourseBadge = React.createClass({
+const CourseBadge = React.createClass({
     render() {
         var {className, code, scale, style} = this.props;
         var course = getCourseIcon(code);
