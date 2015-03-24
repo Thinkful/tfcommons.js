@@ -1,4 +1,7 @@
 const React = require('react');
+const cx = React.addons.classSet;
+
+const {getCourseIcon} = require('../media/courseIcons');
 
 /**
  * <CourseBadge code={course_code} scale={1}/>
@@ -8,11 +11,11 @@ const React = require('react');
  */
 const CourseBadge = React.createClass({
     render() {
-        var {code, scale, style} = this.props;
-        var course = COURSES.filter(
-            c => new RegExp(c.code, 'gi').test(code))[0] || COURSE_DEFAULT;
-        var src = `${BUCKET}/${course.path || course.code}/icon.svg`;
+        var {className, code, scale, style} = this.props;
+        var course = getCourseIcon(code);
+        var src = course.url;
 
+        className = `${className || ''} course-badge`;
         scale = scale || 1;
         style = style || {
             height: `${1.5 * scale}em`,
@@ -20,65 +23,11 @@ const CourseBadge = React.createClass({
         };
 
         return (
-            <img alt={course.displayName} className="course-badge"
-                {...{src, style}} // object spread
+            <img alt={course.displayName}
+                {...{className, src, style}} // object spread
             />
         );
     }
 });
 
-const BUCKET = "//tf-assets-prod.s3.amazonaws.com/splash/courses";
-const COURSES = [
-    {   displayName: "Android Development",
-        code: "and",
-    },
-    {   displayName: "AngularJS",
-        code: "ang",
-    },
-    {   displayName: "Become a Frontend Developer",
-        code: "bfd",
-    },
-    {   displayName: "Data Science",
-        code: "data",
-    },
-    {   displayName: "Modern Web Design",
-        code: "des",
-    },
-    {   displayName: "Frontend Web Development",
-        code: "fewd",
-    },
-    {   displayName: "Swift iOS Development",
-        code: "ios",
-        path: "swift"
-    },
-    {   displayName: "JavaScript @ MakerSquare",
-        code: "mksq",
-    },
-    {   displayName: "NodeJS",
-        code: "node",
-    },
-    {   displayName: "Programming in Python",
-        code: "pip",
-    },
-    {   displayName: "Ruby on Rails",
-        code: "ror",
-    },
-    {   displayName: "Application Design",
-        code: "appdes",
-        path: "uxd"
-    },
-    {   displayName: "Career Services",
-        code: "career",
-        path: "uxd"
-    },
-    {   displayName: "User Experience Design",
-        code: "uxd",
-        path: "uxd"
-    }
-];
-const COURSE_DEFAULT = {
-    displayName: "ERROR: COURSE ICON MISSING",
-    path: "uxd"
-}
-
-module.exports = CourseBadge;
+export default CourseBadge;
