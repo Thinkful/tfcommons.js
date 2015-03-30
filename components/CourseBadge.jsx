@@ -1,5 +1,5 @@
 const React = require('react');
-const cx = React.addons.classSet;
+import cx from 'classnames';
 
 const {getCourseIcon} = require('../media/courseIcons');
 
