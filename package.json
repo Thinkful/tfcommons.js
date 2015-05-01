@@ -26,6 +26,10 @@
     {
       "email": "t.ripley.peterson@gmail.com",
       "name": "Thomas Peterson"
+    },
+    {
+      "email": "darrell@thinkful.com",
+      "name": "Darrell Silver"
     }
   ],
   "dependencies": {
