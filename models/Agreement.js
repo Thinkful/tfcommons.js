@@ -19,28 +19,14 @@ Agreement.prototype.getFirstSession = function() {
 }
 
 Agreement.prototype.getNextSession = function() {
-    // next_session is a fickle mistress, instead we'll use the day of the week
-    // and construct a new date
-    var session = moment(this.next_session_iso);
-    var current = moment();
-    var next;
+    // note next_session is in student's tz.
+    var next = moment(this.next_session_iso);
 
-    if(!this.hasBegun()) {
-        next = this.getFirstSession();
-    }
-    else if(session.weekday() === current.weekday()) {
-        try {
-            next = moment(session).set({
-                month: current.month(),
-                date: current.date(),
-                year: current.year()
-            })
-        } catch (e) {}
-    }
-
-    if (!next || moment(next).add(45, 'minutes').isBefore()) {
-        // next_session may still be behind, safe bet it's seven days from now
-        next = session.isBefore() ? session.add(7, 'days') : session;
+    if (next && moment(next).add(45, 'minutes').isBefore()) {
+        // next session is happening now (according to browser's tz). 
+        // let's continue to show it as happening now instead of a
+        // week from now.
+        next = next.isBefore() ? next.add(7, 'days') : next;
     }
 
     return next;
