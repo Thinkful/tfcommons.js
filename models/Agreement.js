@@ -65,10 +65,14 @@ function isSessionOccuringToday () {
 }
 
 Agreement.prototype.hasSessionCurrently =
-function isSessionOccuringRecently () {
+function isSessionOccuringRecently (before, after) {
+    before = before || 45;
+    after = after || 45;
+
     var next = this.getNextSession();
+
     return next && next.isBetween(
-        moment().subtract(45, 'minutes'), moment().add(45, 'minutes'))
+        moment().subtract(before, 'minutes'), moment().add(after, 'minutes'))
 }
 
 Agreement.prototype.hasSessionNow =
