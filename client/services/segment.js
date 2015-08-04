@@ -31,9 +31,6 @@ function load(writeKey) {
     mountSegmentIO();
     // Configure with write key
     global.analytics.load(writeKey);
-    // Record first event
-    global.analytics.page();
-
 
     return global.analytics;
 }
