@@ -11,24 +11,24 @@ var QueryString = function() {
 
     // This function is anonymous, is executed immediately and
     // the return value is assigned to QueryString!
-    var query_string = {};
+    var queryString = {};
     var query = window.location.search.substring(1);
     var vars = query.split("&");
     for (var i=0; i < vars.length; i++) {
         var pair = vars[i].split("=");
         // If first entry with this name
-        if (typeof query_string[pair[0]] === "undefined") {
-            query_string[pair[0]] = decodeURIComponent(pair[1]);
+        if (typeof queryString[pair[0]] === "undefined") {
+            queryString[pair[0]] = decodeURIComponent(pair[1]);
         // If second entry with this name
-        } else if (typeof query_string[pair[0]] === "string") {
-            var arr = [ query_string[pair[0]], decodeURIComponent(pair[1]) ];
-            query_string[pair[0]] = arr;
+        } else if (typeof queryString[pair[0]] === "string") {
+            var arr = [ queryString[pair[0]], decodeURIComponent(pair[1]) ];
+            queryString[pair[0]] = arr;
         // If third or later entry with this name
         } else {
-            query_string[pair[0]].push(decodeURIComponent(pair[1]));
+            queryString[pair[0]].push(decodeURIComponent(pair[1]));
         }
     }
-    return query_string;
+    return queryString;
 }();
 
 function load(writeKey) {
@@ -120,11 +120,23 @@ function mountSegmentIO() {
     identifyQsWrapper = function(func) {
         return function() {
             var args = Array.prototype.slice.call(arguments);
-            var qs = QueryString || {};
-            var user = __env.user || {};
 
             if (args.length == 0) {
-                args = user.email || qs.email || [];
+                var qs = {};
+                if (typeof QueryString !== 'undefined') {
+                    qs = QueryString;
+                }
+
+                var user = {};
+                if (typeof __env !== 'undefined') {
+                    if (typeof __env.user !== 'undefined') {
+                        user = __env.user;
+                    }
+                }
+
+                if (user.email || qs.email) {
+                    args[0] = user.email || qs.email;
+                }
             }
             return func.apply(this, args);;
         }
