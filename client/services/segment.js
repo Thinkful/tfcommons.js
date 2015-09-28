@@ -3,6 +3,34 @@
  * @param  {String} writeKey the project write key
  * @return {Object}          a configured SegmentIO analytics object
  */
+
+var QueryString = function() {
+    // Originally from
+    // http://stackoverflow.com/questions/979975/
+    // how-to-get-the-value-from-the-url-parameter
+
+    // This function is anonymous, is executed immediately and
+    // the return value is assigned to QueryString!
+    var queryString = {};
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0; i < vars.length; i++) {
+        var pair = vars[i].split("=");
+        // If first entry with this name
+        if (typeof queryString[pair[0]] === "undefined") {
+            queryString[pair[0]] = decodeURIComponent(pair[1]);
+        // If second entry with this name
+        } else if (typeof queryString[pair[0]] === "string") {
+            var arr = [ queryString[pair[0]], decodeURIComponent(pair[1]) ];
+            queryString[pair[0]] = arr;
+        // If third or later entry with this name
+        } else {
+            queryString[pair[0]].push(decodeURIComponent(pair[1]));
+        }
+    }
+    return queryString;
+}();
+
 function load(writeKey) {
     if (global.analytics) {
         return global.analytics;
@@ -69,6 +97,54 @@ function mountSegmentIO() {
             analytics.SNIPPET_VERSION = "3.0.1";
         }
     }
+
+    // Wrap page calls in a function which adds user
+    // variables if they exist but are not present.
+    userDataWrapper = function(func) {
+        return function() {
+            var user = __env.user;
+            var args = Array.prototype.slice.call(arguments);
+
+            dataArgs = args[1] || {}
+            for (var key in user) {
+                if (!dataArgs.hasOwnProperty(key)) {
+                    dataArgs[key] = user[key];
+                }
+            }
+            args[1] = dataArgs;
+
+            return func.apply(this, args);;
+        }
+    };
+
+    identifyQsWrapper = function(func) {
+        return function() {
+            var args = Array.prototype.slice.call(arguments);
+
+            if (args.length == 0) {
+                var qs = {};
+                if (typeof QueryString !== 'undefined') {
+                    qs = QueryString;
+                }
+
+                var user = {};
+                if (typeof __env !== 'undefined') {
+                    if (typeof __env.user !== 'undefined') {
+                        user = __env.user;
+                    }
+                }
+
+                if (user.email || qs.email) {
+                    args[0] = user.email || qs.email;
+                }
+            }
+            return func.apply(this, args);;
+        }
+    };
+
+    analytics.page = userDataWrapper(analytics.page);
+    analytics.track = userDataWrapper(analytics.track);
+    analytics.identify = identifyQsWrapper(analytics.identify);
 
     return analytics;
 };
